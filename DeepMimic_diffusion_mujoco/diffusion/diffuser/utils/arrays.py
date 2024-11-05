@@ -4,7 +4,9 @@ import torch
 import pdb
 
 DTYPE = torch.float
-DEVICE = 'cuda:0'
+# 根据可用的硬件选择设备，优先使用 GPU（CUDA 或 MPS），否则使用 CPU
+DEVICE = 'CUDA:0' if torch.cuda.is_available() else 'cpu'
+
 
 #-----------------------------------------------------------------------------#
 #------------------------------ numpy <--> torch -----------------------------#
@@ -32,13 +34,13 @@ def to_device(x, device=DEVICE):
 	else:
 		raise RuntimeError(f'Unrecognized type in `to_device`: {type(x)}')
 
-def batchify(batch, device=DEVICE):
+def batchify(batch):
 	'''
 		convert a single dataset item to a batch suitable for passing to a model by
 			1) converting np arrays to torch tensors and
 			2) and ensuring that everything has a batch dimension
 	'''
-	fn = lambda x: to_torch(x[None], device=device)
+	fn = lambda x: to_torch(x[None])
 
 	batched_vals = []
 	for field in batch._fields:
@@ -72,7 +74,7 @@ def set_device(device):
 	if 'cuda' in device:
 		torch.set_default_tensor_type(torch.cuda.FloatTensor)
 
-def batch_to_device(batch, device='cuda:0'):
+def batch_to_device(batch, device=DEVICE):
     vals = [
         to_device(getattr(batch, field), device)
         for field in batch._fields
