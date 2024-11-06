@@ -4,6 +4,9 @@ import glfw
 import argparse
 import time
 
+# python3.10 mocap_player_new.py (logs/0-test/test2.npy)
+
+
 # 模型文件路径
 xmlpath = "assets/dp_env_v2.xml"
 
