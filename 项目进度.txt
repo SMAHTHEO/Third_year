@@ -1,0 +1,28 @@
+
+
+
+
+    未完成
+
+
+
+
+
+
+
+
+
+    已完成
+
+
+            1. 构建环境 environment.yml & requirements.txt
+            2. 理解代码 并 运行 0_v2
+            3. 创建 自己的 baseline 0_v2 
+            4. mojuco 查看结果
+
+
+
+
+
+
+
